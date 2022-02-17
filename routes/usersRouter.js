@@ -4,7 +4,7 @@ const User = require("../models/User");
 const { getUsers, getAllUsers } = require("../controllers/userController");
 
 // Get all Users (Owners , Doglovers , Admins)
-usersRouter.get("/users", verify);
+usersRouter.get("/users", getUsers);
 
 // Get One User (Owner / Doglover / Admin)
 usersRouter.get("/users/:id", getUsers);
