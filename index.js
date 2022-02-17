@@ -23,6 +23,6 @@ app.get("/", (req, res) => {
 });
 
 // Connect to MongoDB
-mongoose.connect(process.env.MONGO_DB); // MONGO_DB needs to be added in .env file
+// mongoose.connect(process.env.MONGO_DB); // MONGO_DB needs to be added in .env file
 
 app.listen(PORT, console.log(`Server is listening on port ${PORT}`));
