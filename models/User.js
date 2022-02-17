@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
-
 const Schema = mongoose.Schema;
+
+//******************NOTE************************//
+//mongoose does not support float/double but mongoDB
+//in order to have field with datatype double
+//do this you have to install mongoose-double package
+//npm install mongoose-double
+//******************NOTE************************//
+
+//use mongoose-double for your Schema
+require('mongoose-double')(mongoose);
+var SchemaTypes = mongoose.Schema.Types;
 
 const User = new Schema({
   // User Schema
@@ -31,10 +41,6 @@ const User = new Schema({
     type: String,
     required: true,
   },
-  user_type: {
-    type: String,
-    required: true,
-  },
   profile_pic: {
     type: String,
     required: false,
@@ -56,15 +62,17 @@ const User = new Schema({
     required: false,
   },
   latitude: {
-    type: float,
+    type: SchemaTypes.Double,
     required: false,
   },
   longitude: {
-    type: float,
+    type: SchemaTypes.Double,
     required: false,
   },
   loaction: {
-    type: "Point",
+    //using this to avoid confusion between type of mongoose
+    //and GeoJSON type
+    type: { type: String },
     coordinates: [Number]
   },
   Description: {

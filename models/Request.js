@@ -39,7 +39,7 @@ const Request = new Schema({
     type: String
   },
   is_expired: {
-    type: boolean
+    type: Boolean
   },
   dl_message: {
     type: String,
@@ -56,7 +56,7 @@ const Request = new Schema({
     ref: 'User'
   },
   can_home_sit: {
-    type: boolean
+    type: Boolean
   },
 });
 
