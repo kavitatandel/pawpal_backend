@@ -43,6 +43,34 @@ const User = new Schema({
     type: String,
     required: false,
   },
+  city: {
+    type: String,
+    required: false,
+  },
+  zip_code: {
+    type: String,
+    required: false,
+  },
+  country: {
+    type: String,
+    required: false,
+  },
+  latitude: {
+    type: float,
+    required: false,
+  },
+  longitude: {
+    type: float,
+    required: false,
+  },
+  loaction: {
+    type: "Point",
+    coordinates: [Number]
+  },
+  Description: {
+    type: String,
+    required: false,
+  },
 });
 
 module.exports = mongoose.model("User", User);
