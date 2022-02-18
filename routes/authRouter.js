@@ -10,5 +10,4 @@ authRouter.post("/register", registerUser);
 //creating route for user login
 authRouter.post('/login', userLogin);
 
-
 module.exports = authRouter;
