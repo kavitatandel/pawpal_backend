@@ -5,9 +5,9 @@ const mongoose = require("mongoose");
 const PORT = process.env.PORT || 5000;
 
 //get routers
-const userRouter = require('./routes/usersRouter');
-const dogRouter = require('./routes/dogRouter');
-const requestRouter = require('./routes/requestRouter');
+const userRouter = require("./routes/usersRouter");
+const dogRouter = require("./routes/dogRouter");
+const requestRouter = require("./routes/requestRouter");
 const authRouter = require("./routes/authRouter");
 
 //use cors to communicate between front-end and back-end
@@ -30,15 +30,15 @@ app.get("/", (req, res) => {
 });
 
 //use userRouters to create User Schema
-app.use('/', userRouter);
+app.use("/", userRouter);
 
 //use dogRouters to create Dog Schema
-app.use('/', dogRouter);
+app.use("/", dogRouter);
 
 //use requestRouters to create Request Schema
-app.use('/', requestRouter);
+app.use("/", requestRouter);
 
-app.use("/", authRouter)
+app.use("/", authRouter);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_DB); // MONGO_DB needs to be added in .env file
