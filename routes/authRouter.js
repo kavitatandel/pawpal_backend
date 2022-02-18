@@ -8,6 +8,6 @@ const { registerUser, userLogin } = require("../controllers/authController");
 authRouter.post('/register', registerUser);
 
 //creating route for user login
-authRouter.get('/login', userLogin);
+authRouter.post('/login', userLogin);
 
 module.exports = authRouter;
