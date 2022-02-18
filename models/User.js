@@ -9,7 +9,7 @@ const Schema = mongoose.Schema;
 //******************NOTE************************//
 
 //use mongoose-double for your Schema
-require('mongoose-double')(mongoose);
+require("mongoose-double")(mongoose);
 var SchemaTypes = mongoose.Schema.Types;
 
 const User = new Schema({
@@ -69,13 +69,13 @@ const User = new Schema({
     type: SchemaTypes.Double,
     required: false,
   },
-  loaction: {
+  location: {
     //using this to avoid confusion between type of mongoose
     //and GeoJSON type
     type: { type: String },
-    coordinates: [Number]
+    coordinates: [Number],
   },
-  Description: {
+  description: {
     type: String,
     required: false,
   },
