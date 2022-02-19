@@ -9,6 +9,7 @@ const userRouter = require("./routes/usersRouter");
 const dogRouter = require("./routes/dogRouter");
 const requestRouter = require("./routes/requestRouter");
 const authRouter = require("./routes/authRouter");
+const uploadRouter = require("./routes/uploadRouter")
 
 //use cors to communicate between front-end and back-end
 const cors = require("cors");
@@ -39,6 +40,9 @@ app.use("/", dogRouter);
 app.use("/", requestRouter);
 
 app.use("/", authRouter);
+
+//use uploadRouter to upload file
+//app.use('/uploads', uploadRouter);
 
 // Connect to MongoDB
 mongoose.connect(process.env.MONGO_DB); // MONGO_DB needs to be added in .env file
