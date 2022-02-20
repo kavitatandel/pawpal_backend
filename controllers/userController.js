@@ -10,11 +10,10 @@ const getUsers = async (req, res, next) => {
   }
 };
 
-
 // Get all Users (Owners , Doglovers , Admins)
-const getAllUsers = async (req, res, next) => {
+const getSingleUser = async (req, res, next) => {
   try {
-    const users = await User.find();
+    const users = await User.findOne({ _id: req.params.id });
     res.json(users);
   } catch (err) {
     res.status(404).send(err);
@@ -27,28 +26,27 @@ const updateUser = async (req, res, next) => {
     //added 19.0.2022
     //get uploaded file
     if (!req.file) {
-      next(new Error('No file uploaded!'));
+      next(new Error("No file uploaded!"));
       return;
     }
-    const url = req.file.path
-    console.log(req.file.path)
+    const url = req.file.path;
+    console.log(req.file.path);
     console.log(url);
     //console.log(req);
     const desc = req.body.desc;
-    console.log('desc')
-    console.log(desc)
+    console.log("desc");
+    console.log(desc);
     //added 19.0.2022
 
     const userFind = await User.findOne({ _id: req.params.id });
     // await userFind.updateOne({ $set: req.body })
 
     await userFind.updateOne({
-      $set:
-      {
+      $set: {
         description: desc,
         profile_pic: url,
-      }
-    })
+      },
+    });
     res.json({ secure_url: req.file.path });
     // res.send('User is successfully updated.');
   } catch (err) {
@@ -56,9 +54,9 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-
 module.exports = {
   getUsers,
-  getAllUsers,
+  // getAllUsers,
   updateUser,
+  getSingleUser,
 };
