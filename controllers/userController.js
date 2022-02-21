@@ -20,7 +20,7 @@ const getSingleUser = async (req, res, next) => {
   }
 };
 
-// Get all Users (Owners , Doglovers , Admins)
+// update user (Owners , Doglovers , Admins)
 const updateUser = async (req, res, next) => {
   try {
     //added 19.0.2022

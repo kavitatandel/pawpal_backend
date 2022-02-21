@@ -22,6 +22,8 @@ const registerUser = async (req, res) => {
     city: req.body.city,
     zip_code: req.body.zip_code,
     country: req.body.country,
+    latitude: req.body.latitude,
+    longitude: req.body.longitude,
   });
   newUser.save();
   res.send(
