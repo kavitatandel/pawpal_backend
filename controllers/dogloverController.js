@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 //get the dogs by user id
 const getDogsByCity = async (req, res, next) => {
 
+    //find all dogs by passing city
     User.aggregate([
         { $match: { city: req.params.city } },
         {
