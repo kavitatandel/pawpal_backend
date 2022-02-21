@@ -1,6 +1,7 @@
 const express = require("express");
 const usersRouter = express.Router();
 const User = require("../models/User");
+const verify = require("../middleware/verify");
 const {
   getUsers,
   getSingleUser,
@@ -15,7 +16,7 @@ const fileUploader = require("../configs/cloudinary.config");
 usersRouter.get("/users", getUsers);
 
 // Get One User (Owner / Doglover / Admin)
-usersRouter.get("/users/:id", getSingleUser);
+usersRouter.get("/users/:id", verify, getSingleUser);
 
 // //update user infos
 // usersRouter.post('/users/:id', updateUser); //commented for file upload
