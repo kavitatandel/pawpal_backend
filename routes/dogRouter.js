@@ -8,9 +8,9 @@ const { getDogs, addDog } = require("../controllers/dogController");
 const verify = require("../middleware/verify");
 
 //get all dogs - for now to create Schema
-dogRouter.get("/dogs", verify, getDogs);
+dogRouter.get("/dogs", getDogs);
 
 //get all dogs - for now to create Schema
-dogRouter.post("/adddog/:userId", verify, addDog);
+dogRouter.post("/adddog", addDog);
 
 module.exports = dogRouter;

@@ -6,7 +6,7 @@ const { getDogsByCity } = require("../controllers/dogloverController");
 const verify = require("../middleware/verify");
 
 // Get all Users (Doglover) with type = "doglover"
-dogloversRouter.get("/doglovers", verify, async (req, res) => {
+dogloversRouter.get("/doglovers", async (req, res) => {
   try {
     const users = await User.find({
       type: "doglover",
@@ -28,6 +28,6 @@ dogloversRouter.get("/doglover/:id", async (req, res) => {
 });
 
 // Get dogs by city
-dogloversRouter.get("/searchdog", verify, getDogsByCity);
+dogloversRouter.get("/searchdog/:city", getDogsByCity);
 
 module.exports = dogloversRouter;

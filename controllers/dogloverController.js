@@ -1,27 +1,34 @@
 const Dog = require('../models/Dog');
 const User = require('../models/User')
+const mongoose = require('mongoose')
 
 //get the dogs by user id
 const getDogsByCity = async (req, res, next) => {
-    console.log("Get Dogs By City")
-    try {
-        console.log("Get Dogs By City -2")
-        User.aggregate(pipeline, { allowDiskUse: true });
-        User.aggregate([{
+
+    User.aggregate([
+        { $match: { city: req.params.city } },
+        {
             $lookup: {
-                from: 'Dog',
-                localField: 'user_id',
-                foreignField: '_id',
-                as: 'searchedDogs'
+                from: "dogs", //collection name inside mongoDB with which you want to aggregate with
+                localField: "_id", //key from User collection(uuid)
+                foreignField: "user_id", //key from dogs collection which is linked to User table
+                as: "dogs_info", //name we want to give to result
             }
-        }]);
-        console.log("Get Dogs By City -3")
-        console.log(User)
-        res.send(User);
-    }
-    catch (err) {
-        res.status(404).send(err);
-    }
+        },
+
+        // Deconstructs the array field from the
+        // input document to output a document
+        // for each element
+        {
+            $unwind: "$dogs_info",
+        },
+    ])
+        .then((result) => {
+            res.send(result);
+        })
+        .catch((error) => {
+            console.log(error);
+        });
 }
 
 module.exports = {

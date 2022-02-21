@@ -14,9 +14,9 @@ const getDogs = async (req, res, next) => {
 //insert dogs by user id
 const addDog = async (req, res, next) => {
     try {
-        const userId = req.params.id;
+        //const userId = req.params.id;
         const newDog = new Dog({
-            user_id: userId,
+            user_id: req.body.user_id,
             name: req.body.name,
             breed: req.body.breed,
             age_years: req.body.age_years,
