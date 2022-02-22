@@ -44,7 +44,34 @@ const addDog = async (req, res, next) => {
     }
 }
 
+//insert dogs by user id
+const addDogProfilePic = async (req, res, next) => {
+    try {
+        //get uploaded file
+        if (!req.file) {
+            next(new Error("No file uploaded!"));
+            return;
+        }
+        else {
+            const userId = req.params.id;
+            const newDog = new Dog({
+                user_id: userId,
+                profile_photo: req.file.path,
+            });
+
+            newDog.save();
+            res.send(`Dog Profile Pic is added`);
+        }
+
+    }
+    catch (err) {
+        res.status(404).send(err);
+    }
+}
+
+
 module.exports = {
     getDogs,
     addDog,
+    addDogProfilePic,
 };

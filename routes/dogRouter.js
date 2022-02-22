@@ -10,7 +10,10 @@ const verify = require("../middleware/verify");
 //get all dogs - for now to create Schema
 dogRouter.get("/dogs", getDogs);
 
-//get all dogs - for now to create Schema
+//add dog
 dogRouter.post("/adddog", addDog);
+
+//add dog't profile pic
+dogRouter.post("/addDogProfilePic", addDog);
 
 module.exports = dogRouter;
