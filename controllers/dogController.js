@@ -22,7 +22,7 @@ const addDog = async (req, res, next) => {
             age_years: req.body.age_years,
             age_months: req.body.age_months,
             sie: req.body.size,
-            profile_photo: req.body.profile_photo,
+            //profile_photo: req.body.profile_photo,
             description: req.body.description,
             energy: req.body.energy,
             kid_friendly: req.body.kid_friendly,
