@@ -12,16 +12,15 @@ const getDogs = async (req, res, next) => {
 }
 
 //insert dogs by user id
-const addDog = async (req, res, next) => {
+const addDog = (req, res) => {
     try {
-        //const userId = req.params.id;
         const newDog = new Dog({
             user_id: req.body.user_id,
             name: req.body.name,
             breed: req.body.breed,
             age_years: req.body.age_years,
             age_months: req.body.age_months,
-            sie: req.body.size,
+            size: req.body.size,
             //profile_photo: req.body.profile_photo,
             description: req.body.description,
             energy: req.body.energy,
@@ -32,8 +31,8 @@ const addDog = async (req, res, next) => {
             can_stay_home: req.body.can_stay_home,
             exercise_type: req.body.exercise_type,
             can_play_fetch: req.body.can_play_fetch,
-            photo_gallery: req.body.photo_gallery,
-            pd_counter: req.body.pd_counter
+            // photo_gallery: req.body.photo_gallery,
+            // pd_counter: req.body.pd_counter
         });
 
         newDog.save();
