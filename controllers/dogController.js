@@ -175,11 +175,80 @@ const getDogsByUserId = async (req, res, next) => {
     }
 }
 
+//get the dogs by user id
+const getDogInfoById = async (req, res, next) => {
+    try {
+        const Dogs = await Dog.find({ _id: req.params.dog_id });
+        //console.log(Dogs);
+        res.json(Dogs);
+    }
+    catch (err) {
+        res.status(404).send(err);
+    }
+}
+
+// //get the dogs by user id
+// const getDogInfoById = async (req, res, next) => {
+//     console.log(req.params.dog_id)
+//     console.log(req.params.user_id)
+//     try {
+
+//         Dog.aggregate([
+//             {
+//                 $lookup:
+//                 {
+//                     from: "users",
+//                     localField: "user_id",
+//                     foreignField: "_id",
+//                     as: "dogInfo"
+//                 }
+//             },
+//             {
+//                 $match: {
+//                     _id: req.params.dog_id,
+//                     user_id: req.params.user_id
+//                 }
+//             },
+//             // Deconstructs the array field from the
+//             // input document to output a document
+//             // for each element
+//             {
+//                 $unwind: "$dogInfo",
+//             },
+//         ])
+//             .then((result) => {
+//                 res.send(result);
+//             })
+//             .catch((error) => {
+//                 console.log(error);
+//             });
+//     }
+//     catch (err) {
+//         res.status(404).send(err);
+//     }
+
+// }
+
+
 module.exports = {
     getDogs,
     addDog,
-    getDogsByUserId
+    getDogsByUserId,
+    getDogInfoById
 };
+
+
+// //get the dogs by user id
+// const getDogInfoById = async (req, res, next) => {
+//     try {
+//         const Dogs = await Dog.find({ _id: req.params.dog_id });
+//         //console.log(Dogs);
+//         res.json(Dogs);
+//     }
+//     catch (err) {
+//         res.status(404).send(err);
+//     }
+// }
 
 //insert dogs by user id
 // const addDog = (req, res, next) => {
