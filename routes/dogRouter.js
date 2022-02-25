@@ -4,7 +4,7 @@ const dogRouter = express.Router();
 //get the Dog Schema
 const Dog = require("../models/Dog");
 //get the methods from controller
-const { getDogs, addDog, getDogsByUserId } = require("../controllers/dogController");
+const { getDogs, addDog, getDogsByUserId, getDogInfoById } = require("../controllers/dogController");
 const verify = require("../middleware/verify");
 
 //for file upload
@@ -22,6 +22,10 @@ dogRouter.post("/adddog", fileUploader.single("file"), addDog);
 //get all dogs by user id
 //dogRouter.get("/getDogsByUserId", getDogsByUserId);
 dogRouter.get("/getDogsByUserId/:user_id", getDogsByUserId);
+
+//get dog info by id
+dogRouter.get("/getDogInfoById/:dog_id", getDogInfoById);
+//dogRouter.get("/getDogInfoById/:dog_id/:user_id", getDogInfoById);
 
 //add dog's profile pic
 //dogRouter.post("/addDogProfilePic", fileUploader.single("file"), addDogProfilePic);
