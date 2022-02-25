@@ -20,7 +20,8 @@ dogRouter.get("/dogs", getDogs);
 dogRouter.post("/adddog", fileUploader.single("file"), addDog);
 
 //get all dogs by user id
-dogRouter.get("/dogsbyowner", getDogsByUserId);
+//dogRouter.get("/getDogsByUserId", getDogsByUserId);
+dogRouter.get("/getDogsByUserId/:user_id", getDogsByUserId);
 
 //add dog's profile pic
 //dogRouter.post("/addDogProfilePic", fileUploader.single("file"), addDogProfilePic);
