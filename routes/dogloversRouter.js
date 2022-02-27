@@ -2,7 +2,9 @@ const express = require("express");
 const dogloversRouter = express.Router();
 const User = require("../models/User");
 
-const { getDogsByCity } = require("../controllers/dogloverController");
+const { getDogsByCity,
+  addPlayDateRequest,
+  getDogLoverRequests } = require("../controllers/dogloverController");
 const verify = require("../middleware/verify");
 
 // Get all Users (Doglover) with type = "doglover"
@@ -29,5 +31,12 @@ dogloversRouter.get("/doglover/:id", async (req, res) => {
 
 // Get dogs by city
 dogloversRouter.get("/searchdog/:city", getDogsByCity);
+
+// Get dogs by city
+dogloversRouter.post("/addPlayDateRequest", addPlayDateRequest);
+
+// Get dogs by city
+dogloversRouter.get("/getDogLoverRequests", getDogLoverRequests);
+
 
 module.exports = dogloversRouter;
