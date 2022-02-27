@@ -11,6 +11,7 @@ const requestRouter = require("./routes/requestRouter");
 const authRouter = require("./routes/authRouter");
 const uploadRouter = require("./routes/uploadRouter")
 const dogloverRouter = require("./routes/dogloversRouter")
+const ownerRouter = require("./routes/ownerRouter")
 
 //use cors to communicate between front-end and back-end
 const cors = require("cors");
@@ -44,6 +45,8 @@ app.use("/", requestRouter);
 app.use("/", authRouter);
 
 app.use("/", dogloverRouter);
+
+app.use("/", ownerRouter);
 
 //use uploadRouter to upload file
 //app.use('/uploads', uploadRouter);
