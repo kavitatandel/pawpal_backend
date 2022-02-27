@@ -85,6 +85,26 @@ const GetPlayDateRequestsForOwner = async (req, res, next) => {
     }
 }
 
+//update request by owner
+const UpdatePlayDateRequest = async (req, res, next) => {
+    try {
+        const requestFind = await Request.findOne({ _id: req.body.requestid });
+
+        await requestFind.updateOne({
+            $set: {
+                status: req.body.status,
+                owner_message: req.body.owner_message,
+                owner_reason: req.body.owner_reason,
+            }
+        });
+        res.send("Request has been updated.")
+
+    } catch (error) {
+        res.status(404).send(error);
+    }
+}
+
 module.exports = {
     GetPlayDateRequestsForOwner,
+    UpdatePlayDateRequest,
 }
