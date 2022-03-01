@@ -4,7 +4,8 @@ const User = require("../models/User");
 
 const { getDogsByCity,
   addPlayDateRequest,
-  getDogLoverRequests } = require("../controllers/dogloverController");
+  getDogLoverRequests,
+  getDogLoverApprovedRequests } = require("../controllers/dogloverController");
 const verify = require("../middleware/verify");
 
 // Get all Users (Doglover) with type = "doglover"
@@ -35,8 +36,10 @@ dogloversRouter.get("/searchdog/:city", getDogsByCity);
 // Get dogs by city
 dogloversRouter.post("/addPlayDateRequest", addPlayDateRequest);
 
-// Get dogs by city
-dogloversRouter.get("/getDogLoverRequests", getDogLoverRequests);
+// Get dog lover 'Pending' requests
+dogloversRouter.get("/getDogLoverRequests/:userid", getDogLoverRequests);
 
+// Get dog lover 'Approved' requests
+dogloversRouter.get("/getDogLoverApprovedRequests/:userid", getDogLoverApprovedRequests);
 
 module.exports = dogloversRouter;

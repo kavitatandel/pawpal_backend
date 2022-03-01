@@ -60,29 +60,74 @@ const addPlayDateRequest = async (req, res, next) => {
     }
 }
 
-//not working properly, have to filter by dog_lover_id
 //get dog lovers requests
 const getDogLoverRequests = async (req, res, next) => {
     try {
-
+        // console.log(req.params.userid)
         //find all dog request by dog lover id
         Request.aggregate([
-            // { "$match": { "dog_lover_id": '621411dbb4a10c071012140e' } },
+
             {
                 $lookup: {
                     from: "dogs", //collection name inside mongoDB with which you want to aggregate with
                     localField: "dog_id", //key from Request collection(uuid)
                     foreignField: "_id", //key from dogs collection which is linked to User table
-                    as: "dogs_requests", //name we want to give to result
+                    as: "DogsRequests", //name we want to give to result
                 }
             },
 
+            {
+                "$match": {
+                    "dog_lover_id": mongoose.Types.ObjectId(req.params.userid)
+                    , "status": "Pending",
+                }
+            },
+
+            // Deconstructs the array field from the
+            // input document to output a document
+            // for each element
+            {
+                $unwind: "$DogsRequests",
+            },
+
+        ])
+            .then((result) => {
+                res.send(result);
+            })
+
+    } catch (error) {
+        res.status(404).send(error);
+    }
+}
+
+//get dog lovers Approved Requests
+const getDogLoverApprovedRequests = async (req, res, next) => {
+    try {
+
+        //find all dog request by dog lover id
+        Request.aggregate([
+
+            {
+                $lookup: {
+                    from: "dogs", //collection name inside mongoDB with which you want to aggregate with
+                    localField: "dog_id", //key from Request collection(uuid)
+                    foreignField: "_id", //key from dogs collection which is linked to User table
+                    as: "DogsRequests", //name we want to give to result
+                }
+            },
+
+            {
+                "$match": {
+                    "dog_lover_id": mongoose.Types.ObjectId(req.params.userid),
+                    "status": "Approved",
+                }
+            },
             //{ "$match": { "dog_lover_id": '621411dbb4a10c071012140e' } },
             // Deconstructs the array field from the
             // input document to output a document
             // for each element
             {
-                $unwind: "$dogs_requests",
+                $unwind: "$DogsRequests",
             },
 
         ])
@@ -100,5 +145,6 @@ module.exports = {
     getDogsByCity,
     addPlayDateRequest,
     getDogLoverRequests,
+    getDogLoverApprovedRequests,
 }
 
