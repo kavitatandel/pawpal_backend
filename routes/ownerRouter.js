@@ -8,6 +8,7 @@ const { GetPlayDateRequestsForOwner, UpdatePlayDateRequest
 } = require("../controllers/ownerController");
 
 ownerRouter.get('/GetPlayDateRequestsForOwner', GetPlayDateRequestsForOwner);
+ownerRouter.get('/GetPlayDateRequestsForOwner/:ownerid', GetPlayDateRequestsForOwner);
 ownerRouter.post('/UpdatePlayDateRequest', UpdatePlayDateRequest);
 
 module.exports = ownerRouter;
