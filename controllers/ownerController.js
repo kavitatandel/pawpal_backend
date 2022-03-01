@@ -62,7 +62,63 @@ const GetPlayDateRequestsForOwner = async (req, res, next) => {
     }
 }
 
+//get approved dog requests for owner
+const GetApprovedRequestsForOwner = async (req, res, next) => {
+    // const owner_id = req.body.owner_id;
+    // console.log(req.body.owner_id);
+    const owner_id = req.params.ownerid;
+    // console.log(owner_id);
 
+    try {
+        //console.log("backend owner play date request")
+        Request.aggregate([
+            {
+
+                $lookup: {
+                    from: 'dogs',//schema name in mongoDB database (schema in backend app is Dog)
+                    localField: 'dog_id',// field from request schema
+                    foreignField: '_id',//field from dog schema
+                    as: 'DogsRequests', // makes temp schema which has records from dog table which has a join with request table
+                }
+            },
+
+            {
+                $match: {
+                    //to access any field from dogs schema, you should refer ot by temp schema name
+                    //which is now DogsRequests
+                    // "DogsRequests.user_id": mongoose.Types.ObjectId("62179f513f68399eeacd0952")
+                    // "DogsRequests.user_id": owner_id
+                    "DogsRequests.user_id": mongoose.Types.ObjectId(owner_id)
+                    , "status": "Approved"
+                }
+            },
+
+            {
+                $unwind: '$DogsRequests' // unwind turns array result into object
+            },
+            {
+                $lookup: {
+                    from: 'users',
+                    localField: 'dog_lover_id',
+                    foreignField: '_id',
+                    as: 'DogLovers'
+                }
+            },
+
+            {
+                $unwind: '$DogLovers'
+            },
+
+        ])
+            .then((result) => {
+                //console.log(result);
+                res.send(result);
+            })
+
+    } catch (error) {
+        res.status(404).send(error);
+    }
+}
 
 //update request by owner
 const UpdatePlayDateRequest = async (req, res, next) => {
@@ -86,4 +142,5 @@ const UpdatePlayDateRequest = async (req, res, next) => {
 module.exports = {
     GetPlayDateRequestsForOwner,
     UpdatePlayDateRequest,
+    GetApprovedRequestsForOwner,
 }
