@@ -5,7 +5,8 @@ const User = require("../models/User");
 const { getDogsByCity,
   addPlayDateRequest,
   getDogLoverRequests,
-  getDogLoverApprovedRequests } = require("../controllers/dogloverController");
+  getDogLoverApprovedRequests,
+  deleteRequestById } = require("../controllers/dogloverController");
 const verify = require("../middleware/verify");
 
 // Get all Users (Doglover) with type = "doglover"
@@ -41,5 +42,8 @@ dogloversRouter.get("/getDogLoverRequests/:userid", getDogLoverRequests);
 
 // Get dog lover 'Approved' requests
 dogloversRouter.get("/getDogLoverApprovedRequests/:userid", getDogLoverApprovedRequests);
+
+// Get dog lover 'Approved' requests
+dogloversRouter.delete("/deleteRequestById/:requestid", deleteRequestById);
 
 module.exports = dogloversRouter;

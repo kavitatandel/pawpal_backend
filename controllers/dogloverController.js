@@ -140,11 +140,29 @@ const getDogLoverApprovedRequests = async (req, res, next) => {
     }
 }
 
+const deleteRequestById = async (req, res, next) => {
+    try {
+        console.log(req.params.requestid)
+        await Request.findOneAndDelete({ _id: mongoose.Types.ObjectId(req.params.requestid) }, function (error, docs) {
+            if (error) {
+                console.log(error)
+            }
+            else {
+                console.log("Deleted Request : ", docs);
+            }
+        })
+
+    } catch (error) {
+        res.status(404).send(error);
+    }
+}
+
 
 module.exports = {
     getDogsByCity,
     addPlayDateRequest,
     getDogLoverRequests,
     getDogLoverApprovedRequests,
+    deleteRequestById
 }
 
