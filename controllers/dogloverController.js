@@ -79,7 +79,7 @@ const getDogLoverRequests = async (req, res, next) => {
             {
                 "$match": {
                     "dog_lover_id": mongoose.Types.ObjectId(req.params.userid)
-                    , "status": "Pending",
+                    // , "status": "Pending", //get all requests
                 }
             },
 
