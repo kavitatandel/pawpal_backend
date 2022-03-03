@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const User = require("../models/User");
 
 // Get all Users (Owners , Doglovers , Admins)
@@ -20,16 +21,20 @@ const getSingleUser = async (req, res, next) => {
   }
 };
 
-//check if email exist
-const checkEMailExist = async (req, res, next) => {
-  try {
-    const emailExist = await User.findOne({ email: req.body.email });
-    if (emailExist) return res.status(400).send(true);
+// // //check if email exist
+// const checkEMailExist = async (req, res, next) => {
+//   try {
+//     const emailExist = await User.findOne({ email: req.body.email, _id: { $ne: mongoose.Types.ObjectId(req.body._id) } });
+//     if (emailExist) {
+//       return res.status(400).send(true);
+//     } else {
+//       return res.status(400).send(false);
+//     }
 
-  } catch (err) {
-    res.status(404).send(err);
-  }
-}
+//   } catch (err) {
+//     res.status(404).send(err);
+//   }
+// }
 
 // update user (Owners , Doglovers , Admins)
 const updateUser = async (req, res, next) => {
@@ -65,14 +70,18 @@ const updateUser = async (req, res, next) => {
   }
 };
 
-// Registration for all Users
+// update user profile
 const updateUserProfile = async (req, res) => {
   try {
+    //console.log(req.body._id)
+    //console.log(req.body.description)
     //find the user based on id
-    const userFind = User.findOne({ _id: req.params.id })
-
+    const userFind = User.findOne({ _id: mongoose.Types.ObjectId(req.body._id) })
+    //const userFind = await User.findOne({ _id: req.body._id })
+    //console.log(userFind)
     await userFind.updateOne({
       $set: {
+        _id: req.body._id,
         first_name: req.body.first_name,
         last_name: req.body.last_name,
         email: req.body.email,
@@ -86,7 +95,8 @@ const updateUserProfile = async (req, res) => {
       }
     });
 
-    res.send(
+
+    await res.send(
       `You have successfully Updated ${req.body.first_name} ${req.body.last_name}`
     );
 
@@ -102,5 +112,5 @@ module.exports = {
   updateUser,
   getSingleUser,
   updateUserProfile,
-  checkEMailExist
+
 };

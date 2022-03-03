@@ -139,8 +139,28 @@ const UpdatePlayDateRequest = async (req, res, next) => {
     }
 }
 
+
+//check if email exist
+const checkEMailExist = async (req, res, next) => {
+    try {
+        // console.log(req.params.email);
+        const emailExist = await User.findOne({ email: req.params.email, _id: { $ne: mongoose.Types.ObjectId(req.params.userid) } });
+        //const emailExist = await User.findOne({ email: req.body.email })
+        //console.log(emailExist);
+        if (emailExist) {
+            return res.send(true);
+        } else {
+            return res.send(false);
+        }
+
+    } catch (err) {
+        res.status(404).send(err);
+    }
+}
+
 module.exports = {
     GetPlayDateRequestsForOwner,
     UpdatePlayDateRequest,
     GetApprovedRequestsForOwner,
+    checkEMailExist,
 }
