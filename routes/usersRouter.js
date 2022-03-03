@@ -8,7 +8,7 @@ const {
   //   getAllUsers,
   updateUser,
   updateUserProfile,
-  checkEMailExist
+
 } = require("../controllers/userController");
 
 //for file upload
@@ -16,6 +16,10 @@ const fileUploader = require("../configs/cloudinary.config");
 
 // Get all Users (Owners , Doglovers , Admins)
 usersRouter.get("/users", getUsers);
+
+
+// //edit user profile info except photo
+// usersRouter.get("/users/checkemail", checkEMailExist)
 
 // Get One User (Owner / Doglover / Admin)
 usersRouter.get("/users/:id", verify, getSingleUser);
@@ -27,9 +31,7 @@ usersRouter.get("/users/:id", verify, getSingleUser);
 usersRouter.post("/users/:id", fileUploader.single("file"), updateUser);
 
 //edit user profile info except photo
-usersRouter.post("/users", updateUserProfile)
+usersRouter.post("/updateuserprofile", updateUserProfile)
 
-//edit user profile info except photo
-usersRouter.post("/users", checkEMailExist)
 
 module.exports = usersRouter;
