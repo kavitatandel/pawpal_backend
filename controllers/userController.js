@@ -20,6 +20,17 @@ const getSingleUser = async (req, res, next) => {
   }
 };
 
+//check if email exist
+const checkEMailExist = async (req, res, next) => {
+  try {
+    const emailExist = await User.findOne({ email: req.body.email });
+    if (emailExist) return res.status(400).send(true);
+
+  } catch (err) {
+    res.status(404).send(err);
+  }
+}
+
 // update user (Owners , Doglovers , Admins)
 const updateUser = async (req, res, next) => {
   try {
@@ -54,9 +65,42 @@ const updateUser = async (req, res, next) => {
   }
 };
 
+// Registration for all Users
+const updateUserProfile = async (req, res) => {
+  try {
+    //find the user based on id
+    const userFind = User.findOne({ _id: req.params.id })
+
+    await userFind.updateOne({
+      $set: {
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        street: req.body.street,
+        city: req.body.city,
+        zip_code: req.body.zip_code,
+        country: req.body.country,
+        latitude: req.body.latitude,
+        longitude: req.body.longitude,
+        description: req.body.description
+      }
+    });
+
+    res.send(
+      `You have successfully Updated ${req.body.first_name} ${req.body.last_name}`
+    );
+
+  } catch (err) {
+    res.status(404).send(err);
+  }
+};
+
+
 module.exports = {
   getUsers,
   // getAllUsers,
   updateUser,
   getSingleUser,
+  updateUserProfile,
+  checkEMailExist
 };
