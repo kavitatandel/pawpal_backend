@@ -7,6 +7,8 @@ const {
   getSingleUser,
   //   getAllUsers,
   updateUser,
+  updateUserProfile,
+  checkEMailExist
 } = require("../controllers/userController");
 
 //for file upload
@@ -21,7 +23,13 @@ usersRouter.get("/users/:id", verify, getSingleUser);
 // //update user infos
 // usersRouter.post('/users/:id', updateUser); //commented for file upload
 
-//update user infos
+//update user photo
 usersRouter.post("/users/:id", fileUploader.single("file"), updateUser);
+
+//edit user profile info except photo
+usersRouter.post("/users", updateUserProfile)
+
+//edit user profile info except photo
+usersRouter.post("/users", checkEMailExist)
 
 module.exports = usersRouter;
