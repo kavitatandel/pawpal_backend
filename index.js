@@ -9,14 +9,13 @@ const userRouter = require("./routes/usersRouter");
 const dogRouter = require("./routes/dogRouter");
 const requestRouter = require("./routes/requestRouter");
 const authRouter = require("./routes/authRouter");
-const uploadRouter = require("./routes/uploadRouter")
-const dogloverRouter = require("./routes/dogloversRouter")
-const ownerRouter = require("./routes/ownerRouter")
+const uploadRouter = require("./routes/uploadRouter");
+const dogloverRouter = require("./routes/dogloversRouter");
+const ownerRouter = require("./routes/ownerRouter");
 
 //use cors to communicate between front-end and back-end
 const cors = require("cors");
 app.use(cors());
-
 
 //it will convert response to json
 app.use(express.json());

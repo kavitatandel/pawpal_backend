@@ -6,11 +6,11 @@ const Schema = mongoose.Schema;
 const Request = new Schema({
   dog_id: {
     type: Schema.Types.ObjectId,
-    ref: 'Dog'
+    ref: "Dog",
   },
   dog_lover_id: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User",
   },
   start_date: {
     type: Date,
@@ -19,7 +19,7 @@ const Request = new Schema({
   },
   end_date: {
     type: Date,
-    default: Date.now
+    default: Date.now,
   },
   start_time: {
     type: String,
@@ -36,27 +36,27 @@ const Request = new Schema({
     required: true,
   },
   status: {
-    type: String
+    type: String,
   },
   is_expired: {
-    type: Boolean
+    type: Boolean,
   },
   dl_message: {
     type: String,
   },
   owner_reason: {
-    type: String
+    type: String,
   },
   owner_message: {
-    type: String
+    type: String,
   },
   //will be used if owner wants to put request for sitting his/her dog
   user_id: {
     type: Schema.Types.ObjectId,
-    ref: 'User'
+    ref: "User",
   },
   can_home_sit: {
-    type: Boolean
+    type: Boolean,
   },
 });
 
