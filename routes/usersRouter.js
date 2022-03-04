@@ -30,8 +30,7 @@ usersRouter.get("/users/:id", verify, getSingleUser);
 //update user photo
 usersRouter.post("/users/:id", fileUploader.single("file"), updateUser);
 
-//edit user profile info except photo
-usersRouter.post("/updateuserprofile", updateUserProfile)
+
 
 
 module.exports = usersRouter;

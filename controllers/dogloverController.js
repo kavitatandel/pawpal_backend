@@ -9,7 +9,15 @@ const getDogsByCity = async (req, res, next) => {
 
     //find all dogs by passing city
     User.aggregate([
-        { $match: { city: req.params.city } },
+        // { $match: { city: req.params.city } },
+        //in this 'i' -meaning case insensitive
+        {
+            $match: {
+                "city": {
+                    "$regex": req.params.city, "$options": "i"
+                }
+            }
+        },
         {
             $lookup: {
                 from: "dogs", //collection name inside mongoDB with which you want to aggregate with

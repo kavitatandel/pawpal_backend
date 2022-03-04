@@ -158,9 +158,45 @@ const checkEMailExist = async (req, res, next) => {
     }
 }
 
+// update user profile
+const updateUserProfile = async (req, res) => {
+    try {
+        //console.log(req.body._id)
+        //console.log(req.body.description)
+        //find the user based on id
+        const userFind = User.findOne({ _id: mongoose.Types.ObjectId(req.body._id) })
+        //const userFind = await User.findOne({ _id: req.body._id })
+        //console.log(userFind)
+        await userFind.updateOne({
+            $set: {
+                _id: req.body._id,
+                first_name: req.body.first_name,
+                last_name: req.body.last_name,
+                email: req.body.email,
+                street: req.body.street,
+                city: req.body.city,
+                zip_code: req.body.zip_code,
+                country: req.body.country,
+                latitude: req.body.latitude,
+                longitude: req.body.longitude,
+                description: req.body.description
+            }
+        });
+
+
+        await res.send(
+            `You have successfully Updated ${req.body.first_name} ${req.body.last_name}`
+        );
+
+    } catch (err) {
+        res.status(404).send(err);
+    }
+};
+
 module.exports = {
     GetPlayDateRequestsForOwner,
     UpdatePlayDateRequest,
     GetApprovedRequestsForOwner,
     checkEMailExist,
+    updateUserProfile
 }
