@@ -1,4 +1,5 @@
 const Dog = require('../models/Dog')
+const mongoose = require('mongoose');
 
 //get the dogs by user id
 const getDogs = async (req, res, next) => {
@@ -159,12 +160,7 @@ const addDog = (req, res, next) => {
 //get the dogs by user id
 const getDogsByUserId = async (req, res, next) => {
     try {
-        // console.log("dogs by owner")
-        // console.log(req.body.user_id);
 
-        // const Dogs = await Dog.find({ user_id: req.body.user_id });
-
-        //console.log(req.params.user_id);
 
         const Dogs = await Dog.find({ user_id: req.params.user_id });
         //console.log(Dogs);
@@ -187,54 +183,92 @@ const getDogInfoById = async (req, res, next) => {
     }
 }
 
-// //get the dogs by user id
-// const getDogInfoById = async (req, res, next) => {
-//     console.log(req.params.dog_id)
-//     console.log(req.params.user_id)
-//     try {
+const editDog = async (req, res, next) => {
+    try {
+        // console.log("inside edit dog")
+        //console.log(req.body._id)
+        let ageYears;
+        let ageMonths;
 
-//         Dog.aggregate([
-//             {
-//                 $lookup:
-//                 {
-//                     from: "users",
-//                     localField: "user_id",
-//                     foreignField: "_id",
-//                     as: "dogInfo"
-//                 }
-//             },
-//             {
-//                 $match: {
-//                     _id: req.params.dog_id,
-//                     user_id: req.params.user_id
-//                 }
-//             },
-//             // Deconstructs the array field from the
-//             // input document to output a document
-//             // for each element
-//             {
-//                 $unwind: "$dogInfo",
-//             },
-//         ])
-//             .then((result) => {
-//                 res.send(result);
-//             })
-//             .catch((error) => {
-//                 console.log(error);
-//             });
-//     }
-//     catch (err) {
-//         res.status(404).send(err);
-//     }
+        if (req.body.age_years === 'null') {
+            ageYears = 0
+        }
+        else {
+            ageYears = req.body.age_years;
+        }
 
-// }
+        if (req.body.age_months === 'null') {
+            ageMonths = 0
+        }
+        else {
+            ageMonths = req.body.age_months;
+        }
+
+        const dogFind = Dog.findOne({ _id: mongoose.Types.ObjectId(req.body._id) })
+        //  console.log(dogFind)
+        await dogFind.updateOne({
+            $set: {
+                name: req.body.name,
+                breed: req.body.breed,
+                age_years: ageYears,
+                age_months: ageMonths,
+                size: req.body.size,
+                description: req.body.description,
+                energy: req.body.energy,
+                kid_friendly: req.body.kid_friendly,
+                cat_friendly: req.body.cat_friendly,
+                dog_friendly: req.body.dog_friendly,
+                obedience: req.body.obedience,
+                can_stay_home: req.body.can_stay_home,
+                exercise_type: req.body.exercise_type,
+                can_play_fetch: req.body.can_play_fetch,
+            }
+        });
+
+        await res.send(`Dog is updated`);
+
+    }
+    catch (err) {
+        res.status(404).send(err);
+    }
+
+}
+
+//edit dog profile pic
+const editDogProfilePic = async (req, res, next) => {
+    try {
+        //get uploaded file
+        if (!req.file) {
+            next(new Error("No file uploaded!"));
+            return;
+        }
+        else {
+            const dogId = req.params.dogId;
+            const dogFind = Dog.findOne({ _id: mongoose.Types.ObjectId(req.body._id) })
+            //  console.log(dogFind)
+            await dogFind.updateOne({
+                $set: {
+                    profile_photo: req.file.path,
+                }
+            });
+
+            await res.json({ secure_url: req.file.path });
+        }
+    }
+    catch (err) {
+        res.status(404).send(err);
+    }
+}
+
 
 
 module.exports = {
     getDogs,
     addDog,
     getDogsByUserId,
-    getDogInfoById
+    getDogInfoById,
+    editDog,
+    editDogProfilePic
 };
 
 
