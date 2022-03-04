@@ -5,7 +5,7 @@ const Dog = require("../models/Dog");
 const Request = require("../models/Request");
 
 const { GetPlayDateRequestsForOwner, UpdatePlayDateRequest, GetApprovedRequestsForOwner,
-    checkEMailExist
+    checkEMailExist, updateUserProfile
 } = require("../controllers/ownerController");
 
 ownerRouter.get('/GetPlayDateRequestsForOwner', GetPlayDateRequestsForOwner);
@@ -14,5 +14,8 @@ ownerRouter.get('/GetApprovedRequestsForOwner/:ownerid', GetApprovedRequestsForO
 ownerRouter.post('/UpdatePlayDateRequest', UpdatePlayDateRequest);
 
 ownerRouter.get('/checkemailaddress/:userid/:email', checkEMailExist);
+
+//edit user profile info except photo
+ownerRouter.post("/updateuserprofile", updateUserProfile)
 
 module.exports = ownerRouter;
