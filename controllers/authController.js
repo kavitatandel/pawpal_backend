@@ -34,11 +34,13 @@ const registerUser = async (req, res) => {
 // Login for all Users
 const userLogin = async (req, res) => {
   const user = await User.findOne({ email: req.body.email });
-  if (!user) return res.status(400).send("Email not found, please register");
+  // if (!user) return res.status(400).send("Email not found, please register");
+  if (!user) return res.send("Email is wrong or does not exist!");
 
   const validPass = await bcrypt.compare(req.body.password, user.password);
   if (!validPass)
-    return res.status(400).send("Password is not valid, please try again!");
+    // return res.status(400).send("Password is not valid, please try again!");
+    return res.send("Password is not valid, please try again!");
 
   const token = jwt.sign({ user }, process.env.SECRET);
   res.header("auth-token", token);
