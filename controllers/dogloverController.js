@@ -72,6 +72,7 @@ const getDogLoverRequests = async (req, res, next) => {
     // console.log(req.params.userid)
     //find all dog request by dog lover id
     Request.aggregate([
+
       {
         $lookup: {
           from: "dogs", //collection name inside mongoDB with which you want to aggregate with
@@ -79,6 +80,7 @@ const getDogLoverRequests = async (req, res, next) => {
           foreignField: "_id", //key from dogs collection which is linked to User table
           as: "DogsRequests", //name we want to give to result
         },
+
       },
 
       {
@@ -88,13 +90,14 @@ const getDogLoverRequests = async (req, res, next) => {
         },
       },
 
+
       // Deconstructs the array field from the
       // input document to output a document
       // for each element
       {
         $unwind: "$DogsRequests",
       },
-    ]).then((result) => {
+    ]).sort({ 'status': 1 }).then((result) => {
       res.send(result);
     });
   } catch (error) {
