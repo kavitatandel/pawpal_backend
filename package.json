@@ -16,6 +16,9 @@
   "bugs": {
     "url": "https://github.com/kavitatandel/pawpal_backend/issues"
   },
+  "engines": {
+    "node": "16.x"
+  },
   "homepage": "https://github.com/kavitatandel/pawpal_backend#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
